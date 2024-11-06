@@ -8,9 +8,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {},
+  mounted() {
+    console.log("hi");
+    this.fetchMovies();
+  },
+  methods: {
+    ...mapActions("moviesStore", ["fetchMovies"]),
+  },
 };
 </script>
 
