@@ -1,20 +1,54 @@
 import axios from "@/plugins/axios";
+import mutations from "@/store/mutations";
+import IDs from "@/store/mock/imdb_top250";
+
+const { SET_MOVIES } = mutations;
+
+function serializeMovies(movies) {
+  return movies.reduce((acc, movie) => {
+    acc[movie.imdbID] = movie;
+    return acc;
+  }, {});
+}
 
 const moviesStore = {
   namespaced: true,
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    id250: IDs,
+    moviesPerPage: 12,
+    currentPage: 1,
+    movies: {},
+  },
+  getters: {
+    slicedIDs:
+      ({ id250 }) =>
+      (from, to) =>
+        id250.slice(from, to),
+    moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
+    currentPage: ({ currentPage }) => currentPage,
+  },
+  mutations: {
+    [SET_MOVIES](store, movies) {
+      store.movies = movies;
+    },
+  },
   actions: {
-    async fetchMovies(context) {
-      console.log(context);
-      const response = await axios.get("/?i=tt0111161", {
-        params: {
-          apikey: process.env.VUE_APP_API_KEY,
-          plot: "full",
-        },
-      });
-      console.log(response);
+    async fetchMovies({ getters, commit }) {
+      try {
+        const { slicedIDs, moviesPerPage, currentPage } = getters;
+        const from = currentPage * moviesPerPage - moviesPerPage;
+        const to = currentPage * moviesPerPage;
+        const moviesToFetch = slicedIDs(from, to);
+        console.log(moviesToFetch);
+        const requests = moviesToFetch.map((id) => axios.get(`/?i=${id}`));
+        console.log(requests);
+        const response = await Promise.all(requests);
+        const movies = serializeMovies(response);
+        console.log(movies);
+        commit("SET_MOVIES", movies);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

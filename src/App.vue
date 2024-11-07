@@ -13,7 +13,6 @@ export default {
   name: "App",
   components: {},
   mounted() {
-    console.log("hi");
     this.fetchMovies();
   },
   methods: {
