@@ -4,7 +4,7 @@ import moviesStore from "./modules/moviesStore";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {},
   getters: {},
   mutations: {},
@@ -13,3 +13,7 @@ export default new Vuex.Store({
     moviesStore,
   },
 });
+
+store.dispatch("loadMovies");
+
+export default store;

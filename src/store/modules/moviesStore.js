@@ -26,6 +26,7 @@ const moviesStore = {
         id250.slice(from, to),
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
     currentPage: ({ currentPage }) => currentPage,
+    getMovies: ({ movies }) => movies,
   },
   mutations: {
     [SET_MOVIES](store, movies) {
@@ -33,15 +34,19 @@ const moviesStore = {
     },
   },
   actions: {
+    loadMovies: {
+      handler({ dispatch }) {
+        dispatch("fetchMovies");
+      },
+      root: true,
+    },
     async fetchMovies({ getters, commit }) {
       try {
         const { slicedIDs, moviesPerPage, currentPage } = getters;
         const from = currentPage * moviesPerPage - moviesPerPage;
         const to = currentPage * moviesPerPage;
         const moviesToFetch = slicedIDs(from, to);
-        console.log(moviesToFetch);
         const requests = moviesToFetch.map((id) => axios.get(`/?i=${id}`));
-        console.log(requests);
         const response = await Promise.all(requests);
         const movies = serializeMovies(response);
         console.log(movies);
