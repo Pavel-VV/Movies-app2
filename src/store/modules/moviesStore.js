@@ -26,7 +26,7 @@ const moviesStore = {
         id250.slice(from, to),
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
     currentPage: ({ currentPage }) => currentPage,
-    getMovies: ({ movies }) => movies,
+    getMoviesList: ({ movies }) => movies,
   },
   mutations: {
     [SET_MOVIES](store, movies) {

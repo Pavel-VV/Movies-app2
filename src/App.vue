@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <ListItems :list="getMovies" />
+    <ListMovies :list="getMoviesList" />
   </div>
 </template>
 
 <script>
-import ListItems from "./components/ListItems";
+import ListMovies from "./components/ListMovies";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
-    ListItems,
-  },
-  mounted() {
-    // this.fetchMovies();
+    ListMovies,
   },
   computed: {
-    ...mapGetters("moviesStore", ["getMovies"]),
+    ...mapGetters("moviesStore", ["getMoviesList"]),
   },
   methods: {
     ...mapActions("moviesStore", ["fetchMovies"]),
