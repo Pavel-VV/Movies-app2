@@ -1,6 +1,6 @@
 <template>
   <div class="movie-item mb-3">
-    <div class="movie-item-poster" :style="movieBg"></div>
+    <div class="movie-item-poster" :style="posterBg"></div>
     <div class="movie-info-wrap">
       <div class="movie-info">
         <h3 class="movie-title">Movie {{ movie.Title }}</h3>
@@ -27,15 +27,10 @@ export default {
       requared: true,
     },
   },
-  data: () => ({
-    defaultBg: "background-color: blue",
-  }),
+  data: () => ({}),
   computed: {
     posterBg() {
       return { "background-image": `url(${this.movie.Poster})` };
-    },
-    movieBg() {
-      return this.movie.Poster ? this.posterBg : this.defaultBg;
     },
   },
 };
