@@ -38,4 +38,8 @@ export default {
   font-size: 50px;
   margin-bottom: 30px;
 }
+
+/* .col {
+  margin-bottom: 24px;
+} */
 </style>
