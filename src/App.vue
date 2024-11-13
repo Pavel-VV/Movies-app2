@@ -2,18 +2,21 @@
   <div id="app">
     <PosterBg :poster="posterBg" />
     <ListMovies :list="getMoviesList" @onMouseOverItem="getPosterBg" />
+    <MoviesPagination />
   </div>
 </template>
 
 <script>
 import ListMovies from "./components/ListMovies";
 import PosterBg from "./components/PosterBg";
+import MoviesPagination from "./components/MoviesPagination";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
     ListMovies,
     PosterBg,
+    MoviesPagination,
   },
   data: () => ({
     posterBg: "",
