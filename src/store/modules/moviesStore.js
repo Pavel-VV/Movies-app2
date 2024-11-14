@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import mutations from "@/store/mutations";
 import IDs from "@/store/mock/imdb_top250";
 
-const { SET_MOVIES } = mutations;
+const { SET_MOVIES, CURRENT_PAGE } = mutations;
 
 function serializeMovies(movies) {
   return movies.reduce((acc, movie) => {
@@ -27,19 +27,23 @@ const moviesStore = {
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
     currentPage: ({ currentPage }) => currentPage,
     getMoviesList: ({ movies }) => movies,
+    getId250Length: ({ id250 }) => id250.length,
   },
   mutations: {
     [SET_MOVIES](store, movies) {
       store.movies = movies;
     },
+    [CURRENT_PAGE](store, page) {
+      store.currentPage = page;
+    },
   },
   actions: {
-    loadMovies: {
-      handler({ dispatch }) {
-        dispatch("fetchMovies");
-      },
-      root: true,
-    },
+    // loadMovies: {
+    //   handler({ dispatch }) {
+    //     dispatch("fetchMovies");
+    //   },
+    //   root: true,
+    // },
     async fetchMovies({ getters, commit }) {
       try {
         const { slicedIDs, moviesPerPage, currentPage } = getters;
@@ -54,6 +58,10 @@ const moviesStore = {
       } catch (err) {
         console.log(err);
       }
+    },
+    changeCurrentPage({ commit, dispatch }, page) {
+      commit("CURRENT_PAGE", page);
+      dispatch("fetchMovies");
     },
   },
 };

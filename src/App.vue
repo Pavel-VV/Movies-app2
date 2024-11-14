@@ -2,7 +2,12 @@
   <div id="app">
     <PosterBg :poster="posterBg" />
     <ListMovies :list="getMoviesList" @onMouseOverItem="getPosterBg" />
-    <MoviesPagination />
+    <MoviesPagination
+      :current-page="currentPage"
+      :per-page="moviesPerPage"
+      :total="getId250Length"
+      @changePage="onChangePage"
+    />
   </div>
 </template>
 
@@ -22,12 +27,30 @@ export default {
     posterBg: "",
   }),
   computed: {
-    ...mapGetters("moviesStore", ["getMoviesList"]),
+    ...mapGetters("moviesStore", [
+      "getMoviesList",
+      "moviesPerPage",
+      "currentPage",
+      "getId250Length",
+    ]),
+  },
+  watch: {
+    "$route.query": {
+      handler: "onPageQueryChange",
+      immediate: true,
+      deep: true,
+    },
   },
   methods: {
-    ...mapActions("moviesStore", ["fetchMovies"]),
+    ...mapActions("moviesStore", ["changeCurrentPage"]),
+    onPageQueryChange({ page = 1 }) {
+      this.changeCurrentPage(Number(page));
+    },
     getPosterBg(poster) {
       this.posterBg = poster;
+    },
+    onChangePage(page) {
+      this.$router.push({ query: { page } });
     },
   },
 };

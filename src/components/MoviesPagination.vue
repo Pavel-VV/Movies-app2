@@ -7,7 +7,6 @@
       prev-text="Prev"
       next-text="Next"
     />
-    <div class="current-page">{{ setCurPage }}</div>
   </div>
 </template>
 
@@ -32,7 +31,6 @@ export default {
     // currentPage: 1,
     // perPage: 12,
     // total: 100,
-    setCurPage: 1,
   }),
   computed: {
     curPage: {
@@ -40,7 +38,7 @@ export default {
         return this.currentPage;
       },
       set(page) {
-        this.setCurPage = page;
+        this.$emit("changePage", page);
       },
     },
   },

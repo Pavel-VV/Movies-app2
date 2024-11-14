@@ -14,6 +14,6 @@ const store = new Vuex.Store({
   },
 });
 
-store.dispatch("loadMovies");
+// store.dispatch("loadMovies");
 
 export default store;
