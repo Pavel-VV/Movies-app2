@@ -1,5 +1,5 @@
 <template>
-  <div class="loader" :style="styleLoader">
+  <div class="loader-wrap" v-if="isShowLoader">
     <BSpinner type="grow" variant="light" />
   </div>
 </template>
@@ -9,26 +9,22 @@ import { mapGetters } from "vuex";
 export default {
   name: "MoviesLoader",
   computed: {
-    ...mapGetters("moviesStore", ["toggleLoader"]),
-    styleLoader() {
-      return { display: this.toggleLoader };
-    },
+    ...mapGetters(["isShowLoader"]),
   },
 };
 </script>
 
 <style scoped>
-.loader {
+.loader-wrap {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
 }
 </style>

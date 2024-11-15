@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import mutations from "@/store/mutations";
 import IDs from "@/store/mock/imdb_top250";
 
-const { SET_MOVIES, CURRENT_PAGE, TOGGLE_LOADER } = mutations;
+const { SET_MOVIES, CURRENT_PAGE } = mutations;
 
 function serializeMovies(movies) {
   return movies.reduce((acc, movie) => {
@@ -18,7 +18,6 @@ const moviesStore = {
     moviesPerPage: 12,
     currentPage: 1,
     movies: {},
-    toggleLoader: "none",
   },
   getters: {
     slicedIDs:
@@ -29,7 +28,6 @@ const moviesStore = {
     currentPage: ({ currentPage }) => currentPage,
     getMoviesList: ({ movies }) => movies,
     getId250Length: ({ id250 }) => id250.length,
-    toggleLoader: ({ toggleLoader }) => toggleLoader,
   },
   mutations: {
     [SET_MOVIES](store, movies) {
@@ -37,9 +35,6 @@ const moviesStore = {
     },
     [CURRENT_PAGE](store, page) {
       store.currentPage = page;
-    },
-    [TOGGLE_LOADER](store, value) {
-      store.toggleLoader = value;
     },
   },
   actions: {
@@ -51,7 +46,7 @@ const moviesStore = {
     // },
     async fetchMovies({ getters, commit, dispatch }) {
       try {
-        dispatch("changeToggleLoader", "flex");
+        dispatch("changeLoader", true, { root: true });
         const { slicedIDs, moviesPerPage, currentPage } = getters;
         const from = currentPage * moviesPerPage - moviesPerPage;
         const to = currentPage * moviesPerPage;
@@ -64,15 +59,12 @@ const moviesStore = {
       } catch (err) {
         console.log(err);
       } finally {
-        dispatch("changeToggleLoader", "none");
+        dispatch("changeLoader", false, { root: true });
       }
     },
     changeCurrentPage({ commit, dispatch }, page) {
       commit("CURRENT_PAGE", page);
       dispatch("fetchMovies");
-    },
-    changeToggleLoader({ commit }, value) {
-      commit("TOGGLE_LOADER", value);
     },
   },
 };
