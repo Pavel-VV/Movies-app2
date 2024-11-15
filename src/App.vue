@@ -8,6 +8,7 @@
       :total="getId250Length"
       @changePage="onChangePage"
     />
+    <MoviesLoader />
   </div>
 </template>
 
@@ -15,6 +16,7 @@
 import ListMovies from "./components/ListMovies";
 import PosterBg from "./components/PosterBg";
 import MoviesPagination from "./components/MoviesPagination";
+import MoviesLoader from "./components/MoviesLoader";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
@@ -22,6 +24,7 @@ export default {
     ListMovies,
     PosterBg,
     MoviesPagination,
+    MoviesLoader,
   },
   data: () => ({
     posterBg: "",
