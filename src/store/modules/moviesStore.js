@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import mutations from "@/store/mutations";
 import IDs from "@/store/mock/imdb_top250";
 
-const { SET_MOVIES, CURRENT_PAGE } = mutations;
+const { SET_MOVIES, CURRENT_PAGE, REMOVE_MOVIE } = mutations;
 
 function serializeMovies(movies) {
   return movies.reduce((acc, movie) => {
@@ -36,6 +36,9 @@ const moviesStore = {
     [CURRENT_PAGE](store, page) {
       store.currentPage = page;
     },
+    [REMOVE_MOVIE](store, index) {
+      store.id250.splice(index, 1);
+    },
   },
   actions: {
     // loadMovies: {
@@ -65,6 +68,13 @@ const moviesStore = {
     changeCurrentPage({ commit, dispatch }, page) {
       commit("CURRENT_PAGE", page);
       dispatch("fetchMovies");
+    },
+    removeMovie({ commit, state, dispatch }, id) {
+      const index = state.id250.indexOf(id);
+      if (index !== -1) {
+        commit("REMOVE_MOVIE", index);
+        dispatch("fetchMovies");
+      }
     },
   },
 };

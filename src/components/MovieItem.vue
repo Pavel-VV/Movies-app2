@@ -10,8 +10,13 @@
         <BButton class="button-edit" size="md" block variant="outline-light"
           >Edit</BButton
         >
-        <BButton class="button-info" size="md" block variant="outline-light"
-          >Info</BButton
+        <BButton
+          class="button-remove"
+          size="md"
+          block
+          variant="outline-light"
+          @click="eventRemove"
+          >Remove</BButton
         >
       </div>
     </div>
@@ -31,6 +36,14 @@ export default {
   computed: {
     posterBg() {
       return { "background-image": `url(${this.movie.Poster})` };
+    },
+  },
+  methods: {
+    eventRemove() {
+      this.$emit("removeMovie", {
+        id: this.movie.imdbID,
+        title: this.movie.Title,
+      });
     },
   },
 };
@@ -76,7 +89,7 @@ export default {
   margin-right: 5px;
 }
 
-.button-info {
+.button-remove {
   width: 100%;
   margin-left: 5px;
 }
