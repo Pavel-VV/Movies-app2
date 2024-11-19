@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <PosterBg :poster="posterBg" />
+    <MoviesHeader />
     <ListMovies :list="getMoviesList" @onMouseOverItem="getPosterBg" />
     <MoviesPagination
       :current-page="currentPage"
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import MoviesHeader from "./components/MoviesHeader";
 import ListMovies from "./components/ListMovies";
 import PosterBg from "./components/PosterBg";
 import MoviesPagination from "./components/MoviesPagination";
@@ -25,6 +27,7 @@ export default {
     PosterBg,
     MoviesPagination,
     MoviesLoader,
+    MoviesHeader,
   },
   data: () => ({
     posterBg: "",
