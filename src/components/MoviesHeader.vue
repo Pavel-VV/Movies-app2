@@ -6,7 +6,7 @@
         <BFormInput
           class="mr-sm-2 search-header"
           placeholder="Search"
-          v-model="searchMovies"
+          v-model="searchText"
           debounce="500"
         ></BFormInput>
       </BContainer>
@@ -15,17 +15,30 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "MoviesHeader",
   data: () => ({
-    searchMovies: "",
+    searchText: "",
   }),
   watch: {
-    searchMovies: "onSearchMovies",
+    searchText: "onSearchMovies",
   },
   methods: {
+    ...mapActions("moviesStore", [
+      "searchMovies",
+      "fetchMovies",
+      "toggleSearch",
+    ]),
     onSearchMovies(value) {
-      console.log(value);
+      if (value) {
+        console.log(value);
+        this.searchMovies(value);
+        this.toggleSearch(true);
+      } else {
+        this.fetchMovies();
+        this.toggleSearch(false);
+      }
     },
   },
 };

@@ -34,8 +34,13 @@ export default {
   },
   data: () => ({}),
   computed: {
+    isPoster() {
+      return this.movie.Poster === "N/A"
+        ? "linear-gradient(45deg, #270133, #940294)"
+        : `url(${this.movie.Poster})`;
+    },
     posterBg() {
-      return { "background-image": `url(${this.movie.Poster})` };
+      return { "background-image": `${this.isPoster}` };
     },
   },
   methods: {

@@ -18,8 +18,13 @@ export default {
     posterStyle() {
       return { "background-image": this.posterBg };
     },
+    isPoster() {
+      return this.poster === "N/A"
+        ? "linear-gradient(45deg, #270133, #940294)"
+        : `url(${this.poster})`;
+    },
     posterBg() {
-      return this.poster ? `url(${this.poster})` : this.posterDefault;
+      return this.poster ? `${this.isPoster}` : this.posterDefault;
     },
   },
 };
