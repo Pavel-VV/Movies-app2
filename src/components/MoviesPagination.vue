@@ -2,7 +2,7 @@
   <div class="movies-pagination">
     <BPagination
       v-model="curPage"
-      :total-rows="total"
+      :total-rows="total250OrSearch"
       :per-page="perPage"
       prev-text="Prev"
       next-text="Next"
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "MoviesPagination",
   props: {
@@ -33,6 +34,10 @@ export default {
     // total: 100,
   }),
   computed: {
+    ...mapGetters("moviesStore", ["getToggleSearch"]),
+    total250OrSearch() {
+      return this.getToggleSearch ? 10 : this.total;
+    },
     curPage: {
       get() {
         return this.currentPage;
