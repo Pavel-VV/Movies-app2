@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <PosterBg :poster="posterBg" />
+    <NotificationToast class="notification" />
     <MoviesHeader />
     <ListMovies :list="getMoviesList" @onMouseOverItem="getPosterBg" />
     <MoviesPagination
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import NotificationToast from "./components/NotificationToast";
 import MoviesHeader from "./components/MoviesHeader";
 import ListMovies from "./components/ListMovies";
 import PosterBg from "./components/PosterBg";
@@ -28,6 +30,7 @@ export default {
     MoviesPagination,
     MoviesLoader,
     MoviesHeader,
+    NotificationToast,
   },
   data: () => ({
     posterBg: "",
@@ -66,5 +69,16 @@ export default {
 #app {
   font-family: Arial, Helvetica;
   position: relative;
+}
+
+.b-toaster .b-toaster-slot .b-toast .toast {
+  display: block;
+}
+
+.b-toaster .b-toaster-slot .b-toast .toast .toast-header .close {
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 20px;
 }
 </style>

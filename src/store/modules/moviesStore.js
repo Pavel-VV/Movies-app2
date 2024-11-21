@@ -93,6 +93,15 @@ const moviesStore = {
         commit("SET_MOVIES", movies);
       } catch (err) {
         console.log(err.message);
+        dispatch(
+          "pushMessageNotification",
+          {
+            msg: err.message,
+            variant: "danger",
+            title: "Error",
+          },
+          { root: true }
+        );
       } finally {
         dispatch("changeLoader", false, { root: true });
       }
