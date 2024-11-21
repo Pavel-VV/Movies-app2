@@ -52,7 +52,7 @@ const moviesStore = {
     //   },
     //   root: true,
     // },
-    async fetchMovies({ getters, commit, dispatch }) {
+    async fetchMovies({ getters, commit, dispatch, state }) {
       try {
         dispatch("changeLoader", true, { root: true });
         const { slicedIDs, moviesPerPage, currentPage } = getters;
@@ -64,6 +64,7 @@ const moviesStore = {
         const movies = serializeMovies(response);
         console.log(movies);
         commit("SET_MOVIES", movies);
+        state.toggleSearch = false;
       } catch (err) {
         console.log(err);
       } finally {
@@ -81,7 +82,7 @@ const moviesStore = {
         dispatch("fetchMovies");
       }
     },
-    async searchMovies({ commit, dispatch }, query) {
+    async searchMovies({ commit, dispatch, state }, query) {
       try {
         dispatch("changeLoader", true, { root: true });
         const response = await axios.get(`/?s=${query}`);
@@ -91,6 +92,7 @@ const moviesStore = {
         const movies = serializeMovies(response.Search);
         console.log(movies);
         commit("SET_MOVIES", movies);
+        state.toggleSearch = true;
       } catch (err) {
         console.log(err.message);
         dispatch(

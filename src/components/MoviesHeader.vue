@@ -7,7 +7,7 @@
           class="mr-sm-2 search-header"
           placeholder="Search"
           v-model="searchText"
-          debounce="500"
+          debounce="700"
         ></BFormInput>
       </BContainer>
     </BNavbar>
@@ -34,10 +34,10 @@ export default {
       if (value) {
         console.log(value);
         this.searchMovies(value);
-        this.toggleSearch(true);
+        // this.toggleSearch(true);
       } else {
         this.fetchMovies();
-        this.toggleSearch(false);
+        // this.toggleSearch(false);
       }
     },
   },
