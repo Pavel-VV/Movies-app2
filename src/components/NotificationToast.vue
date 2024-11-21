@@ -24,3 +24,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.b-toaster .b-toaster-slot .b-toast .toast {
+  display: block;
+}
+
+.b-toaster .b-toaster-slot .b-toast .toast .toast-header .close {
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+</style>
