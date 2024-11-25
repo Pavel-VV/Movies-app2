@@ -8,21 +8,27 @@
             :movie="movie"
             @mouseover.native="mouseOverItem(movie.Poster)"
             @removeMovie="onRemoveMovie"
+            @callModalInfo="onCallModalInfo"
           />
         </BCol>
       </template>
       <div v-else>List Empty</div>
     </BRow>
+    <BModal :id="modalWindow" hide-footer hide-header>
+      <ModalInfo :movie="selectedMovieInfo" />
+    </BModal>
   </BContainer>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import MovieItem from "./MovieItem";
+import ModalInfo from "./ModalInfo";
 export default {
   name: "ListMovies",
   components: {
     MovieItem,
+    ModalInfo,
   },
   props: {
     list: {
@@ -30,6 +36,10 @@ export default {
       default: () => ({}),
     },
   },
+  data: () => ({
+    selectedMovie: "",
+    modalWindow: "modal-movie-info",
+  }),
   computed: {
     ...mapGetters("moviesStore", ["getToggleSearch"]),
     isExist() {
@@ -37,6 +47,9 @@ export default {
     },
     tytleListMovies() {
       return this.getToggleSearch ? "Search movies" : "IMDB Top 250";
+    },
+    selectedMovieInfo() {
+      return this.selectedMovie ? this.list[this.selectedMovie] : "null";
     },
   },
   methods: {
@@ -57,6 +70,11 @@ export default {
           variant: "success",
         });
       }
+    },
+    onCallModalInfo(id) {
+      console.log(id);
+      this.selectedMovie = id;
+      this.$bvModal.show(this.modalWindow);
     },
   },
 };

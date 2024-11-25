@@ -7,8 +7,13 @@
         <span class="movie-year">{{ movie.Year }}</span>
       </div>
       <div class="button-control">
-        <BButton class="button-edit" size="md" block variant="outline-light"
-          >Edit</BButton
+        <BButton
+          class="button-edit"
+          size="md"
+          block
+          variant="outline-light"
+          @click="initialInfoEvent"
+          >Info</BButton
         >
         <BButton
           class="button-remove"
@@ -49,6 +54,9 @@ export default {
         id: this.movie.imdbID,
         title: this.movie.Title,
       });
+    },
+    initialInfoEvent() {
+      this.$emit("callModalInfo", this.movie.imdbID);
     },
   },
 };
