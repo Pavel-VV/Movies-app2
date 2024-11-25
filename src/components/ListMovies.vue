@@ -14,7 +14,7 @@
       </template>
       <div v-else>List Empty</div>
     </BRow>
-    <BModal :id="modalWindow" hide-footer hide-header>
+    <BModal :id="modalInfoId" hide-footer hide-header size="xl">
       <ModalInfo :movie="selectedMovieInfo" />
     </BModal>
   </BContainer>
@@ -37,8 +37,8 @@ export default {
     },
   },
   data: () => ({
-    selectedMovie: "",
-    modalWindow: "modal-movie-info",
+    selectedMovieId: "",
+    modalInfoId: "modal-movie-info",
   }),
   computed: {
     ...mapGetters("moviesStore", ["getToggleSearch"]),
@@ -49,7 +49,7 @@ export default {
       return this.getToggleSearch ? "Search movies" : "IMDB Top 250";
     },
     selectedMovieInfo() {
-      return this.selectedMovie ? this.list[this.selectedMovie] : "null";
+      return this.selectedMovieId ? this.list[this.selectedMovieId] : null;
     },
   },
   methods: {
@@ -73,8 +73,8 @@ export default {
     },
     onCallModalInfo(id) {
       console.log(id);
-      this.selectedMovie = id;
-      this.$bvModal.show(this.modalWindow);
+      this.selectedMovieId = id;
+      this.$bvModal.show(this.modalInfoId);
     },
   },
 };

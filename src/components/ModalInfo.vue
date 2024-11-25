@@ -8,7 +8,7 @@ export default {
   props: {
     movie: {
       type: Object,
-      requiaed: true,
+      required: true,
     },
   },
 };

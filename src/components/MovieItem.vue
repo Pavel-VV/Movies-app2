@@ -34,7 +34,7 @@ export default {
   props: {
     movie: {
       type: Object,
-      requared: true,
+      required: true,
     },
   },
   data: () => ({}),
