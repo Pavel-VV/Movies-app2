@@ -1,5 +1,5 @@
 <template>
-  <BContainer>
+  <BContainer class="list-movies">
     <h3 class="list-title">{{ tytleListMovies }}</h3>
     <BRow>
       <template v-if="isExist">
@@ -14,7 +14,13 @@
       </template>
       <div v-else>List Empty</div>
     </BRow>
-    <BModal :id="modalInfoId" hide-footer hide-header size="xl">
+    <BModal
+      :id="modalInfoId"
+      body-class="modal-body-info"
+      hide-footer
+      hide-header
+      size="xl"
+    >
       <ModalInfo :movie="selectedMovieInfo" />
     </BModal>
   </BContainer>
@@ -87,7 +93,17 @@ export default {
   color: #fff;
 }
 
+.list-movies >>> .modal-dialog .modal-content .modal-body {
+  padding: 0 !important;
+}
+
 /* .col {
   margin-bottom: 24px;
 } */
+</style>
+
+<style>
+.modal-body-info {
+  padding: 0 !important;
+}
 </style>
