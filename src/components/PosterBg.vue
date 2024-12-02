@@ -37,7 +37,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   transition: all 0.2s ease;
   z-index: -1;
