@@ -11,7 +11,20 @@
             <div class="info-poster" :style="posterStyle"></div>
           </div>
         </BCol>
-        <BCol sm="8"></BCol>
+        <BCol sm="8">
+          <h1 class="movie-title">{{ movies.Title }}</h1>
+          <BFormRating
+            class="movie-rating"
+            v-model="movieRating"
+            readonly
+            stars="10"
+            show-value
+            show-value-max
+            no-border
+            precision="1"
+          />
+          <p class="movie-info">{{ movies.Plot }}</p>
+        </BCol>
       </BRow>
     </div>
   </div>
@@ -21,7 +34,7 @@
 export default {
   name: "ModalInfo",
   props: {
-    movie: {
+    movies: {
       type: Object,
       required: true,
     },
@@ -31,15 +44,18 @@ export default {
   }),
   computed: {
     isPoster() {
-      return this.movie.Poster === "N/A"
+      return this.movies.Poster === "N/A"
         ? "linear-gradient(45deg, #270133, #940294)"
-        : `url(${this.movie.Poster})`;
+        : `url(${this.movies.Poster})`;
     },
     posterBg() {
-      return this.movie.Poster ? this.isPoster : this.defaultPoster;
+      return this.movies.Poster ? this.isPoster : this.defaultPoster;
     },
     posterStyle() {
       return { "background-image": this.posterBg };
+    },
+    movieRating() {
+      return this.movies.imdbRating;
     },
   },
   methods: {
@@ -90,5 +106,47 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: center center;
+}
+
+.movie-title {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.movie-rating {
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.movie-rating >>> .b-rating-star,
+.movie-rating >>> .b-rating-value {
+  flex-grow: 0 !important;
+  justify-content: flex-start;
+  font-weight: 300;
+  font-size: 1.3rem;
+  padding: 0;
+}
+
+.movie-rating:focus {
+  box-shadow: none;
+}
+
+.movie-rating >>> .b-rating-star .b-rating-icon {
+  color: #ffda1f;
+}
+
+.movie-rating >>> .b-rating-star + .b-rating-star {
+  padding-left: 10px;
+}
+
+.movie-rating >>> .b-rating-value {
+  padding-left: 10px;
+}
+
+.movie-info {
+  font-size: 1.25rem;
+  font-weight: 300;
 }
 </style>

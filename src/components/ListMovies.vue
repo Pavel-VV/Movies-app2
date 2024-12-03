@@ -21,7 +21,7 @@
       hide-header
       size="xl"
     >
-      <ModalInfo :movie="selectedMovieInfo" />
+      <ModalInfo :movies="selectedMovieInfo" />
     </BModal>
   </BContainer>
 </template>
