@@ -5,6 +5,7 @@
     <MoviesHeader />
     <ListMovies :list="getMoviesList" @onMouseOverItem="getPosterBg" />
     <MoviesPagination
+      class="movies-pagination"
       :current-page="currentPage"
       :per-page="moviesPerPage"
       :total="getId250Length"
@@ -67,6 +68,9 @@ export default {
 
 <style>
 #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Arial, Helvetica;
   position: relative;
 }

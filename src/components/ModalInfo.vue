@@ -1,7 +1,7 @@
 <template>
   <div class="modal-info-wrap">
     <header class="header-wrap">
-      <h6 class="movies-info-tytle">Movies info</h6>
+      <h6 class="movies-info-tytle">Movie info</h6>
       <BIconX class="close-icon" @click="closeModal" />
     </header>
     <div class="movies-info-content">
@@ -12,7 +12,7 @@
           </div>
         </BCol>
         <BCol sm="8">
-          <h1 class="movie-title">{{ movies.Title }}</h1>
+          <h1 class="movie-title">{{ movie.Title }}</h1>
           <BFormRating
             class="movie-rating"
             v-model="movieRating"
@@ -23,7 +23,49 @@
             no-border
             precision="1"
           />
-          <p class="movie-info">{{ movies.Plot }}</p>
+          <p class="movie-info">{{ movie.Plot }}</p>
+          <div class="mt-3 mb-4">
+            <BBadge class="badge-info" variant="success">{{
+              movie.Year
+            }}</BBadge>
+            <BBadge class="badge-info" variant="success">{{
+              movie.Language
+            }}</BBadge>
+            <BBadge class="badge-info" variant="success">{{
+              movie.Genre
+            }}</BBadge>
+            <BBadge class="badge-info" variant="success">{{
+              movie.Runtime
+            }}</BBadge>
+          </div>
+          <table class="table small">
+            <tbody>
+              <tr>
+                <th>Production</th>
+                <td>{{ movie.Production }}</td>
+              </tr>
+              <tr>
+                <th>Country</th>
+                <td>{{ movie.Country }}</td>
+              </tr>
+              <tr>
+                <th>Director</th>
+                <td>{{ movie.Director }}</td>
+              </tr>
+              <tr>
+                <th>Writer</th>
+                <td>{{ movie.Writer }}</td>
+              </tr>
+              <tr>
+                <th>Actors</th>
+                <td>{{ movie.Actors }}</td>
+              </tr>
+              <tr>
+                <th>Awards</th>
+                <td>{{ movie.Awards }}</td>
+              </tr>
+            </tbody>
+          </table>
         </BCol>
       </BRow>
     </div>
@@ -34,7 +76,7 @@
 export default {
   name: "ModalInfo",
   props: {
-    movies: {
+    movie: {
       type: Object,
       required: true,
     },
@@ -44,23 +86,24 @@ export default {
   }),
   computed: {
     isPoster() {
-      return this.movies.Poster === "N/A"
+      return this.movie.Poster === "N/A"
         ? "linear-gradient(45deg, #270133, #940294)"
-        : `url(${this.movies.Poster})`;
+        : `url(${this.movie.Poster})`;
     },
     posterBg() {
-      return this.movies.Poster ? this.isPoster : this.defaultPoster;
+      return this.movie.Poster ? this.isPoster : this.defaultPoster;
     },
     posterStyle() {
       return { "background-image": this.posterBg };
     },
     movieRating() {
-      return this.movies.imdbRating;
+      return this.movie.imdbRating;
     },
   },
   methods: {
     closeModal() {
       console.log("close");
+      this.$emit("closeModal");
     },
   },
 };
@@ -148,5 +191,10 @@ export default {
 .movie-info {
   font-size: 1.25rem;
   font-weight: 300;
+}
+
+.badge-info {
+  background-color: #28a745;
+  margin-left: 4px;
 }
 </style>

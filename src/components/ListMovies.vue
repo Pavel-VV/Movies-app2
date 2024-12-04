@@ -21,7 +21,7 @@
       hide-header
       size="xl"
     >
-      <ModalInfo :movies="selectedMovieInfo" />
+      <ModalInfo :movie="selectedMovieInfo" @closeModal="onCloseModal" />
     </BModal>
   </BContainer>
 </template>
@@ -82,6 +82,10 @@ export default {
       this.selectedMovieId = id;
       this.$bvModal.show(this.modalInfoId);
     },
+    onCloseModal() {
+      this.$bvModal.hide(this.modalInfoId);
+      // this.selectedMovieId = null;
+    },
   },
 };
 </script>
@@ -97,9 +101,9 @@ export default {
   padding: 0 !important;
 }
 
-/* .col {
-  margin-bottom: 24px;
-} */
+.list-movies {
+  margin-bottom: 30px;
+}
 </style>
 
 <style>
