@@ -3,12 +3,21 @@
     <BNavbar type="dark" class="navbar" variant="dark">
       <BContainer>
         <BNavbarBrand href="#" class="navbar-brand">MovieDB</BNavbarBrand>
-        <BFormInput
-          class="mr-sm-2 search-header"
-          placeholder="Search"
-          v-model="searchText"
-          debounce="700"
-        ></BFormInput>
+        <div class="search-button-wrap">
+          <BFormInput
+            class="mr-sm-2 search-header"
+            placeholder="Search"
+            v-model="searchText"
+            debounce="700"
+          ></BFormInput>
+          <BButton
+            class="button-login"
+            variant="outline-primary"
+            @click="eventShowModal"
+          >
+            Login
+          </BButton>
+        </div>
       </BContainer>
     </BNavbar>
   </header>
@@ -40,6 +49,9 @@ export default {
         // this.toggleSearch(false);
       }
     },
+    eventShowModal() {
+      this.$emit("showModalLogin");
+    },
   },
 };
 </script>
@@ -58,6 +70,7 @@ export default {
   border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
   width: 220px;
+  margin-right: 10px;
 }
 
 .search-header:focus {
@@ -69,5 +82,26 @@ export default {
 
 .search-header::placeholder {
   color: rgba(255, 255, 255, 0.3);
+}
+
+.search-button-wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.button-login {
+  color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.button-login:hover {
+  background-color: #940294;
+  border-color: #940294;
+  color: #fff;
+}
+
+.button-login:active {
+  background-color: #940294 !important;
+  border-color: #940294 !important;
 }
 </style>
