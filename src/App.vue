@@ -17,7 +17,7 @@
       class="modal-login"
       hide-footer
       hide-header
-      size="lg"
+      size="md"
     >
       <ModalLogin />
     </BModal>
