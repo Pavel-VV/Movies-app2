@@ -14,6 +14,7 @@
           type="email"
           placeholder="Enter email"
           required
+          :[atrState]="getEmailStatus"
         ></BFormInput>
       </BFormGroup>
 
@@ -23,7 +24,9 @@
           v-model="form.password"
           placeholder="Enter password"
           required
-          :state="validate"
+          validated="true"
+          novalidate="true"
+          :[atrState]="getPasswordStatus"
         ></BFormInput>
       </BFormGroup>
     </BForm>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "LoginAtoriz",
   data: () => ({
@@ -45,16 +49,32 @@ export default {
       email: "",
       password: "",
     },
+    validatePassword: false,
+    atrState: "noState",
   }),
   methods: {
+    ...mapActions("authentificationStore", ["validateForm"]),
     eventSubmitForm() {
-      console.log(this.form);
+      // console.log(this.form.password.length);
+      // this.atrState = "state";
+      // if (this.form.password.length > 5) {
+      //   this.validatePassword = true;
+      //   return;
+      // }
+      // this.validatePassword = false;
+      this.atrState = "state";
+      this.validateForm(this.form);
     },
   },
   computed: {
-    validate() {
-      return this.form.password.length > 5;
-    },
+    ...mapGetters("authentificationStore", [
+      "getEmailStatus",
+      "getPasswordStatus",
+    ]),
+    // validatePassword() {
+    //   console.log("computed", this.validation);
+    //   return this.validation;
+    // },
   },
 };
 </script>
