@@ -27,12 +27,34 @@ const authentificationStore = {
     toggleLoginStatus({ commit }, bool) {
       commit(TOGGLE_EMAIL, bool);
     },
-    validateForm({ commit, state }, formInput) {
+    validateForm({ commit, state, dispatch }, formInput) {
       // const res = state.regExp.email.test(formInput.login);
-      const resEmail = formInput.email.length > 5;
-      commit(TOGGLE_EMAIL, resEmail);
-      const resPassword = state.regExp.password.test(formInput.password);
-      commit(TOGGLE_PASSWORD, resPassword);
+      try {
+        const resEmail = formInput.email.length > 5;
+        commit(TOGGLE_EMAIL, resEmail);
+        const resPassword = state.regExp.password.test(formInput.password);
+        commit(TOGGLE_PASSWORD, resPassword);
+        if (resEmail && resPassword) {
+          console.log("true");
+          //добавить запрос на аутентификацию, проверка введенного логина и пароля
+          return;
+        }
+        console.log("false");
+        throw new Error("Authentification error");
+      } catch (err) {
+        dispatch(
+          "pushMessageNotification",
+          {
+            msg: err.message,
+            variant: "danger",
+            title: "Error",
+          },
+          { root: true }
+        );
+      } finally {
+        // dispatch("changeLoader", false, { root: true });
+        console.log("fine");
+      }
     },
   },
 };
