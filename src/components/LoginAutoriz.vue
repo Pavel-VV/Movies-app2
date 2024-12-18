@@ -64,12 +64,14 @@ export default {
       // this.validatePassword = false;
       this.atrState = "state";
       this.validateForm(this.form);
+      this.$emit("eventCloseModalLogin", this.getAuth);
     },
   },
   computed: {
     ...mapGetters("authentificationStore", [
       "getEmailStatus",
       "getPasswordStatus",
+      "getAuth",
     ]),
     // validatePassword() {
     //   console.log("computed", this.validation);

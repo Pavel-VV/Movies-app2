@@ -1,19 +1,21 @@
 // import axios from "@/plugins/axios";
 import mutations from "@/store/mutations";
-import regExp from "@/store/mock/validate";
+import regExp from "@/helpers/validate";
 
-const { TOGGLE_EMAIL, TOGGLE_PASSWORD } = mutations;
+const { TOGGLE_EMAIL, TOGGLE_PASSWORD, TOGGLE_AUTH } = mutations;
 
 const authentificationStore = {
   namespaced: true,
   state: {
-    isEmail: "",
-    isPassword: "",
+    isEmail: false,
+    isPassword: false,
     regExp: regExp,
+    isAuth: false,
   },
   getters: {
     getEmailStatus: ({ isEmail }) => isEmail,
     getPasswordStatus: ({ isPassword }) => isPassword,
+    getAuth: ({ isAuth }) => isAuth,
   },
   mutations: {
     [TOGGLE_EMAIL](state, boolean) {
@@ -21,6 +23,9 @@ const authentificationStore = {
     },
     [TOGGLE_PASSWORD](state, boolean) {
       state.isPassword = boolean;
+    },
+    [TOGGLE_AUTH](state, boolean) {
+      state.isAuth = boolean;
     },
   },
   actions: {
@@ -35,7 +40,7 @@ const authentificationStore = {
         const resPassword = state.regExp.password.test(formInput.password);
         commit(TOGGLE_PASSWORD, resPassword);
         if (resEmail && resPassword) {
-          console.log("true");
+          commit(TOGGLE_AUTH, true);
           //добавить запрос на аутентификацию, проверка введенного логина и пароля
           return;
         }

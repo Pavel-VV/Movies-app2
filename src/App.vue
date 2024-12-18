@@ -19,7 +19,7 @@
       hide-header
       size="md"
     >
-      <ModalLogin />
+      <ModalLogin @closeModalLogin="onCloseModalLogin" />
     </BModal>
   </div>
 </template>
@@ -76,6 +76,11 @@ export default {
     isShowModalLogin() {
       console.log("Modal login");
       this.$bvModal.show("modalLogin");
+    },
+    onCloseModalLogin(boolean) {
+      if (boolean) {
+        this.$bvModal.hide("modalLogin");
+      }
     },
   },
 };

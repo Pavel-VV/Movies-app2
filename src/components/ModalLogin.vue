@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoginAutoriz />
+    <LoginAutoriz @eventCloseModalLogin="onEventCloseModalLogin" />
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
     LoginAutoriz,
   },
   data: () => ({}),
+  methods: {
+    onEventCloseModalLogin(boolean) {
+      this.$emit("closeModalLogin", boolean);
+    },
+  },
 };
 </script>
 

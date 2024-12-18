@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "MovieItem",
   props: {
@@ -39,6 +40,7 @@ export default {
   },
   data: () => ({}),
   computed: {
+    ...mapGetters("authentificationStore", ["getAuth"]),
     isPoster() {
       return this.movie.Poster === "N/A"
         ? "linear-gradient(45deg, #270133, #940294)"
@@ -49,7 +51,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["pushMessageNotification"]),
     eventRemove() {
+      if (!this.getAuth) {
+        this.pushMessageNotification({
+          msg: "autorisation please",
+          variant: "danger",
+          title: "Error",
+        });
+        return;
+      }
       this.$emit("removeMovie", {
         id: this.movie.imdbID,
         title: this.movie.Title,
